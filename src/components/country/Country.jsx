@@ -1,11 +1,22 @@
+import { useState } from 'react';
 import './country.css';
 const Country = ({country}) => {
   console.log(country)
-  const {name, flags} = country;
+
+  const [visited, setVisited] = useState(false);
+
+  const handleVisited = () => {
+    setVisited(!visited);
+  }
+
+  const {name, flags, cca3} = country;
   return (
-    <div className='country'>
+    <div className={`country ${visited && 'visited'}`}>
       <h3>Name: {name?.common}</h3>
       <img className='img' src={flags.svg} alt="" />
+      <p><small>Code: {cca3}</small></p>
+      <button onClick={handleVisited}>{visited? 'visited': 'going'}</button>
+      {visited ? 'I have visited this country': 'I want to visit'}
     </div>
   );
 };
